@@ -4,6 +4,7 @@ const prevButton = document.querySelector('.slider__arrow_prev');
 const dots = Array.from(document.getElementsByClassName('slider__dot'));
 
 let currentSlide = 0;
+let nextSlide = null;
 
 function clearDotsIndicators() {
     for (dot of dots) {
@@ -17,48 +18,39 @@ function setDotIndicator(dotNumber) {
     dots[dotNumber].classList.add('slider__dot_active');
 }
 
+function changeSlide(slide) {
+    sliders[currentSlide].classList.remove('slider__item_active');
+    currentSlide = slide;
+    sliders[slide].classList.add('slider__item_active');
+    clearDotsIndicators();
+    setDotIndicator(slide);
+}
+
 setDotIndicator(currentSlide);
 
 prevButton.onclick = function() {
-    if (currentSlide === 0) {
-        
-        sliders[currentSlide].classList.remove('slider__item_active');
-        currentSlide = sliders.length - 1;
-        sliders[currentSlide].classList.add('slider__item_active');
-        clearDotsIndicators();
-        setDotIndicator(currentSlide);
-
+    if (currentSlide === 0) {     
+        nextSlide = sliders.length - 1;
+        changeSlide(nextSlide);
     } else {
-        sliders[currentSlide].classList.remove('slider__item_active');
-        currentSlide--;
-        sliders[currentSlide].classList.add('slider__item_active');
-        clearDotsIndicators();
-        setDotIndicator(currentSlide);
+        nextSlide = currentSlide - 1;
+        changeSlide(nextSlide);
     }
 };
 
 nextButton.onclick = function() {
     if (currentSlide === sliders.length - 1) {
-        sliders[currentSlide].classList.remove('slider__item_active');
-        currentSlide = 0;
-        sliders[currentSlide].classList.add('slider__item_active');
-        clearDotsIndicators();
-        setDotIndicator(currentSlide);
+        nextSlide = 0;
+        changeSlide(nextSlide);
     } else {
-        sliders[currentSlide].classList.remove('slider__item_active');
-        currentSlide++;
-        sliders[currentSlide].classList.add('slider__item_active');
-        clearDotsIndicators();
-        setDotIndicator(currentSlide);
+        nextSlide = currentSlide + 1;
+        changeSlide(nextSlide);
     }
 };
 
 dots.forEach((dot, i) => {
     dot.onclick = function() {
-        sliders[currentSlide].classList.remove('slider__item_active');
-        currentSlide = i;
-        sliders[currentSlide].classList.add('slider__item_active');
-        clearDotsIndicators();
-        setDotIndicator(currentSlide);
+        nextSlide = i;
+        changeSlide(nextSlide);
     }
 });
