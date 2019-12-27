@@ -17,14 +17,19 @@ class Game {
   }
 
   registerEvents() {
-    /*
-      TODO:
-      Написать обработчик события, который откликается
-      на каждый введённый символ.
-      В случае правильного ввода слова вызываем this.success()
-      При неправильном вводе символа - this.fail();
-     */
-  }
+
+    document.addEventListener('keypress', event => { //2 часа потратил на то, чтобы экспериментальным путем понять, что именно function(event) {} тут не работает и при такой записи не получаем this.currentSymbol
+      const pressedKey = event.key.toLowerCase();
+      const currentChar = this.currentSymbol.textContent.toLowerCase(); //расскажите, пожалуйста, почему тут this работает. Я его применил по аналогии со строчками 35 и 36. По идее он должен указывать на контекст события, а у нас событие - нажатая кнопка.... как мы получаем нужным символ, который отображается на экране?
+
+      if (pressedKey == currentChar) {
+        this.success();
+      } else {
+        this.fail();
+      }
+
+    })
+  };
 
   success() {
     this.currentSymbol.classList.add('symbol_correct');
