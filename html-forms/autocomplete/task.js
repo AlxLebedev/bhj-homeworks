@@ -81,12 +81,29 @@ class Autocomplete {
         value: 'Содержимое атрибута value'
       }
     */
-    return [
-      {
-        text: 'Чубакка',
-        value: '1'
+    const options = this.input.options;
+    const matches = [];
+
+    //Не могу понять почмеу тут не работает for of? Очень долго пытался понять в чем проблема, но когда переделал цикл на обычный классический - стало все ОК
+    // for (option of options) {
+    //   if (option.text.includes(text)) {
+    //     matches.push({
+    //       text: option.text,
+    //       value: option.value
+    //     });
+    //   }
+    // }
+
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].text.includes(text)) {
+        matches.push({
+          text: options[i].text,
+          value: options[i].value
+        });
       }
-    ];
+    }
+    
+    return matches;
   }
 }
 
