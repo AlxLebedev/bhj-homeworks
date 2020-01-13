@@ -22,6 +22,7 @@ function addingTask(task) {
 };
 
 inputField.addEventListener('keyup', (event) => {
+    event.preventDefault();
     if (event.keyCode == 13 && inputField.value != '') {
         inputField.value = inputField.value.trim();
         addingTask(inputField.value);
@@ -29,6 +30,7 @@ inputField.addEventListener('keyup', (event) => {
 });
 
 addBtn.addEventListener('click', () => {
+    event.preventDefault();
     if (inputField.value != '') {
         inputField.value = inputField.value.trim();
         addingTask(inputField.value);
