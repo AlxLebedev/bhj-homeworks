@@ -10,17 +10,20 @@ function whoIsInCart(products, productId) {
 };
 
 function addToCart(id, img, quantity) {
-    let currentProduct = `<div class="cart__product" data-id="${id}">
+    let addedProduct = `<div class="cart__product" data-id="${id}">
                             <img class="cart__product-image" src="${img}">
                             <div class="cart__product-count">${quantity}</div>
                             <a href="#" class="task__remove">&times;</a>
                         </div>`;
-    cart.insertAdjacentHTML('afterbegin', currentProduct);
+    cart.insertAdjacentHTML('beforeend', addedProduct);
 
-    const removeBtn = document.body.querySelector('div.cart__product > a.task__remove');
+    const removeBtn = document.body.querySelector('.cart__products').lastElementChild.querySelector('.task__remove');
     removeBtn.addEventListener('click', function(event) {
         event.preventDefault();
         this.closest('.cart__product').remove();
+        if (document.querySelector('.cart__products').children.length === 0) { //не понял почему не работает в данном случае node.hasChildNodes() - по идее он должен вернуть false когда дочерних узлов не останется и условие должно сработать (карзина пустая станет невилимой)
+            document.querySelector('.cart').classList.add('hidden');
+        };
     });
 };
 
