@@ -24,6 +24,13 @@ xhrPoll.onreadystatechange = function() {
                     if (xhrVote.readyState === 4 && xhrVote.status === 200) {
                         const voteData = JSON.parse(xhrVote.responseText).stat;
 
+                        let totalVote = null;
+
+                        for (vote of voteData) {
+                            totalVote += vote.votes;
+                        };
+
+                        alert('Thanks! Your vote is counted.');
                         answersField.innerHTML = '';
 
                         for (vote of voteData) {
@@ -32,20 +39,16 @@ xhrPoll.onreadystatechange = function() {
                                                     ${vote.answer}:
                                                 </div>
                                                 <div class="vote-item-value">
-                                                    ${vote.votes}
+                                                    ${Math.round((vote.votes / totalVote) * 100)} %
                                                 </div>
                                             </div>`;
                             answersField.insertAdjacentHTML('beforeend', voteItem);
-                            console.log(vote.answer);
-                            console.log(vote.votes)
-                        }
-                    }
-                }
+                        };
+                    };
+                };
                 xhrVote.open('POST', 'https://netology-slow-rest.herokuapp.com/poll.php');
                 xhrVote.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                xhrVote.send(`vote=${pollId}&answer=${answerButtons.indexOf(this)}`);
-
-                alert('Thanks! Your vote is counted.');
+                xhrVote.send(`vote=${pollId}&answer=${answerButtons.indexOf(this)}`); 
             });
         };
     };
