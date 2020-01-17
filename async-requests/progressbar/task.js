@@ -20,5 +20,5 @@ sendBtn.addEventListener('click', function() {
     };
 
     xhr.open('POST', 'https://netology-slow-rest.herokuapp.com/upload.php');
-    xhr.send(file);
+    xhr.send(file.value);
 });
