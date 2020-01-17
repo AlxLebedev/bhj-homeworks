@@ -1,3 +1,17 @@
 body {
   font-family: Arial;
 }
+
+.vote-item {
+  display: flex;
+  padding: 10px 0 10px 0;
+}
+
+.vote-item-answer {
+  text-transform: uppercase;
+}
+
+.vote-item-value {
+  font-weight: bold;
+  margin-left: 5px;
+}
